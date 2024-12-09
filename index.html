@@ -4,6 +4,38 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>emojikey.io - Better LLM Relationships Through Emojis</title>
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://emojikey.io/" />
+        <meta property="og:title" content="emojikey.io" />
+        <meta
+            property="og:description"
+            content="Enhance your AI relationships with emojikeys - the key to better LLM conversations"
+        />
+        <meta property="og:image" content="https://emojikey.io/og-image.png" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://emojikey.io/" />
+        <meta name="twitter:title" content="emojikey.io" />
+        <meta
+            name="twitter:description"
+            content="Enhance your AI relationships with emojikeys - the key to better LLM conversations"
+        />
+        <meta name="twitter:image" content="https://emojikey.io/og-image.png" />
+
+        <!-- Additional meta -->
+        <meta
+            name="description"
+            content="Enhance your AI relationships with emojikeys - the key to better LLM conversations"
+        />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>emojikey.io - Better LLM Relationships Through Emojis</title>
         <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
         <style>
             body {
@@ -366,8 +398,13 @@
             const supabase = window.supabase.createClient(
                 supabaseUrl,
                 supabaseAnonKey,
+                {
+                    auth: {
+                        persistSession: true,
+                        storageKey: "emojikey-auth",
+                    },
+                },
             );
-
             // Function to show/create API key
             async function showApiKey(userId) {
                 const loginButton = document.getElementById("loginButton");
