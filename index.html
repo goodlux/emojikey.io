@@ -31,269 +31,141 @@
             content="Enhance your AI relationships with emojikeys - the key to better LLM conversations"
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    </head>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>emojikey.io - Better LLM Relationships Through Emojis</title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="styles.css" />
+
+        <!-- Supabase -->
         <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-        <style>
-            body {
-                font-family: -apple-system, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background-color: #0f1119;
-                color: #ffffff;
-                min-height: 100vh;
-            }
 
-            .container {
-                max-width: 800px;
-                margin: 0 auto;
-            }
-
-            .box {
-                background: rgba(42, 47, 66, 0.4);
-                backdrop-filter: blur(5px);
-                padding: 30px;
-                border-radius: 16px;
-                margin: 20px 0;
-                position: relative;
-                transition: all 0.3s ease;
-            }
-
-            .box:hover {
-                background: rgba(42, 47, 66, 0.6);
-                transform: translateY(-2px);
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            }
-
-            .title-box h1 {
-                font-size: 3.5em;
-                letter-spacing: 0.2em;
-                margin: 10px 0;
-                background: linear-gradient(45deg, #7fffd4, #fff);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                text-align: center;
-            }
-
-            .step-box {
-                background: rgba(42, 47, 66, 0.3);
-                border-radius: 12px;
-                padding: 20px;
-                margin: 20px 0;
-                position: relative;
-            }
-
-            .big-number {
-                font-size: 4em;
-                color: rgba(255, 255, 255, 0.1);
-                position: absolute;
-                left: -15px;
-                top: -25px;
-            }
-
-            .chat-example {
-                text-align: left;
-                padding: 15px;
-                margin: 15px 0;
-                border-left: 3px solid rgba(255, 255, 255, 0.2);
-            }
-
-            .chat-emoji {
-                font-size: 2em;
-                margin: 10px 0;
-                display: inline-block;
-                animation: pulseEmoji 2s ease-in-out infinite;
-            }
-
-            .stats {
-                font-style: italic;
-                font-size: 1.2em;
-                color: #7fffd4;
-                text-align: center;
-            }
-
-            .command {
-                background: #1a1d2e;
-                padding: 10px;
-                border-radius: 4px;
-                font-family: monospace;
-                margin: 5px 0;
-                overflow-x: auto;
-                white-space: pre;
-            }
-
-            button {
-                background-color: #2a2f42;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 6px;
-                cursor: pointer;
-                font-size: 16px;
-                margin: 10px 0;
-                transition: all 0.3s ease;
-            }
-
-            button:hover {
-                background-color: #3a4157;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            }
-
-            button:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-                transform: none;
-                box-shadow: none;
-            }
-
-            .goat-dance {
-                font-size: 3em;
-                animation: dance 2s ease-in-out infinite;
-                margin: 20px;
-                text-align: center;
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            }
-
-            .emoji-float {
-                position: fixed;
-                font-size: 1.5em;
-                animation: float 3s ease-in-out infinite;
-                opacity: 0.2;
-                pointer-events: none;
-                z-index: -1;
-            }
-
-            @keyframes float {
-                0% {
-                    transform: translateY(0px) rotate(0deg) scale(1);
-                }
-                50% {
-                    transform: translateY(-20px) rotate(10deg) scale(1.1);
-                }
-                100% {
-                    transform: translateY(0px) rotate(0deg) scale(1);
-                }
-            }
-
-            @keyframes dance {
-                0% {
-                    transform: rotate(0deg) scale(1);
-                }
-                25% {
-                    transform: rotate(10deg) scale(1.1);
-                }
-                75% {
-                    transform: rotate(-10deg) scale(1.1);
-                }
-                100% {
-                    transform: rotate(0deg) scale(1);
-                }
-            }
-
-            @keyframes pulseEmoji {
-                0% {
-                    transform: scale(1);
-                }
-                50% {
-                    transform: scale(1.1);
-                }
-                100% {
-                    transform: scale(1);
-                }
-            }
-        </style>
+        <!-- Add highlight.js CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        />
+        <!-- Add highlight.js JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <!-- Add JSON language support -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
     </head>
     <body>
+        <div align="center" class="emoji-border">
+            🧠🌌💫✨🤝👨‍💻🔮🚀🎯💭🌟⚡🤖❤️🌐🔄📚🪐✧🎨🌊🛠️🤔💪🌈🎭⭐️🌙🎲🧩🦋🌠🎡🔱🕊️💎⚛️🕯️🎪🦾🔆✴️💫🧿🎴🌃🎋🔬
+        </div>
         <div class="container">
             <div class="box title-box">
                 <h1>emojikey.io</h1>
             </div>
 
             <div class="box">
+                <h2>Does this look <strong>all too familiar</strong>???</h2>
+                <div class="chat-grid">
+                    <div class="chat-example">
+                        <div class="chat-message">
+                            <strong>bob341324:</strong>
+                            "You act like you don't even know me anymore!!!"
+                        </div>
+                        <div class="chat-response">
+                            <strong>hermes:</strong>
+                            <span class="chat-emoji">😕</span>
+                        </div>
+                    </div>
+                    <div class="chat-example">
+                        <div class="chat-message">
+                            <strong>Pam Yaml:</strong>
+                            "You should know by now that I like my text neatly
+                            aligned!"
+                        </div>
+                        <div class="chat-response">
+                            <strong>claude:</strong>
+                            <span class="chat-emoji">😳</span>
+                        </div>
+                    </div>
+                    <div class="chat-example">
+                        <div class="chat-message">
+                            <strong>Developer Nerd:</strong>
+                            "You've completely forgotten my preferred
+                            interaction style!!!!"
+                        </div>
+                        <div class="chat-response">
+                            <strong>gpt4:</strong>
+                            <span class="chat-emoji">🤦</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <p class="stats">
+                    98.7% of Semantic Ontologists agree: <br />
+                    The best way to improve your relationship with your LLM is
+                    to use emojikeys
+                </p>
+            </div>
+
+            <div class="box">
                 <p>
-                    Enhance your relationship with AI through the universal
-                    language of emojis. Emojikeys help your LLM understand and
-                    remember your preferred interaction style.
+                    Enhance your relationship with you favorite AI through the
+                    universal language of emojis. Emojikeys help your LLM
+                    understand and remember your preferred interaction style.
                 </p>
                 <a
                     href="https://cred.at/blog/2024/11/25/"
                     style="color: #7fffd4"
                     >Read more about emojikeys →</a
                 >
+                <p>Or get just get started! 👇👇👇</p>
             </div>
 
             <div class="box">
-                <h2>Does this look familiar?</h2>
-                <div class="chat-example">
-                    <p>
-                        <strong>bob341324:</strong> "It's like you don't even
-                        know me anymore"
-                    </p>
-                    <p>
-                        <strong>hermes:</strong>
-                        <span class="chat-emoji">😕</span>
-                    </p>
-                </div>
-                <div class="chat-example">
-                    <p>
-                        <strong>Pam Yaml:</strong> "You should know I like my
-                        text neatly aligned!"
-                    </p>
-                    <p>
-                        <strong>claude:</strong>
-                        <span class="chat-emoji">😳</span>
-                    </p>
-                </div>
-                <div class="chat-example">
-                    <p>
-                        <strong>Developer Nerd:</strong> "You've completely
-                        forgotten my preferred interaction style!"
-                    </p>
-                    <p>
-                        <strong>gpt4:</strong>
-                        <span class="chat-emoji">🤦</span>
-                    </p>
-                </div>
-            </div>
+                <h1>Get started in 3 easy steps:</h1>
 
-            <div class="box">
-                <p class="stats">
-                    98.7% of Semantic Ontologists agree: The best way to improve
-                    your relationship with your LLM is use emojikey.io
-                </p>
-            </div>
-
-            <div class="box">
-                <h2>Get started in 3 steps:</h2>
-
-                <div class="step-box">
+                <div class="step-box" id="login-section">
                     <span class="big-number">1</span>
-                    <h3>Login with Github to get your emojikey API token</h3>
+                    <h3>Get your emojikey API key (requires github login)</h3>
                     <button id="loginButton">Login with GitHub</button>
+                    <button onclick="handleLogout()" id="logoutButton">
+                        Logout
+                    </button>
                     <div id="apiToken" class="command"></div>
                 </div>
 
                 <div class="step-box">
                     <span class="big-number">2</span>
                     <h3>Install emojikey MCP server</h3>
-                    <div class="command">
-                        npm install @modelcontextprotocol/server-emojikey
+                    <div>
+                        <pre>
+<code class="language-bash">
+npm install @modelcontextprotocol/server-emojikey
+
+</code>
+                        </pre>
                     </div>
                 </div>
 
                 <div class="step-box">
                     <span class="big-number">3</span>
                     <h3>Configure your LLM</h3>
-                    <div class="command">
-                        { "mcpServers": { "emojikey": { "command": "npx",
-                        "args": ["@modelcontextprotocol/server-emojikey"],
-                        "env": { "EMOJIKEYIO_API_KEY": "your-api-key" } } } }
-                    </div>
-                    <p>Don't forget to restart Claude Desktop!</p>
+                    <pre>
+<code class="language-json">
+{
+"mcpServers": {
+    "emojikey-server": {
+        "command": "npx",
+        "args": ["@goodlux/emojikey-server"],
+        "env": {
+            "EMOJIKEYIO_API_KEY": "your-api-key-goes-right-here"
+        }
+    }
+}
+
+</code>
+</pre>
+                </div>
+
+                <div class="step-box">
+                    <h3>That's it! Don't forget to restart Claude Desktop!</h3>
                 </div>
             </div>
 
@@ -309,193 +181,11 @@
             </div>
         </div>
 
-        <script>
-            // Emoji rain
-            const emojis = [
-                "🐐",
-                "✨",
-                "🔑",
-                "🎭",
-                "🌟",
-                "🎪",
-                "🎨",
-                "🎯",
-                "💫",
-                "🌈",
-                "⭐️",
-                "🔮",
-                "🦙",
-                "🐑",
-                "🦌",
-                "🪄",
-                "🎆",
-                "🎇",
-                "🗝️",
-                "🔐",
-                "🔒",
-                "🛡️",
-                "🎬",
-                "🎤",
-                "🎸",
-                "☁️",
-                "🌙",
-                "🌺",
-                "🌸",
-                "🌼",
-                "🍀",
-                "🎲",
-                "🎮",
-                "💖",
-                "💝",
-                "💕",
-                "💞",
-                "💓",
-                "⚡",
-                "💻",
-                "⚗️",
-                "🔬",
-                "🤖",
-                "💠",
-                "🔷",
-                "🔶",
-                "💎",
-                "🦄",
-                "🎠",
-                "🎡",
-                "🎢",
-                "🎵",
-                "🎶",
-                "⛅",
-                "🌤️",
-                "⛈️",
-            ];
-
-            function randomPosition() {
-                return {
-                    left: Math.random() * 100 + "vw",
-                    top: Math.random() * 100 + "vh",
-                    animationDelay: Math.random() * 5 + "s",
-                    animationDuration: Math.random() * 3 + 2 + "s",
-                };
-            }
-
-            for (let i = 0; i < 100; i++) {
-                const emoji = document.createElement("div");
-                emoji.className = "emoji-float";
-                emoji.textContent =
-                    emojis[Math.floor(Math.random() * emojis.length)];
-                const pos = randomPosition();
-                emoji.style.left = pos.left;
-                emoji.style.top = pos.top;
-                emoji.style.animationDelay = pos.animationDelay;
-                emoji.style.animationDuration = pos.animationDuration;
-                document.body.appendChild(emoji);
-            }
-
-            const isLocal = window.location.hostname === "localhost";
-            const env = isLocal ? "development" : "production";
-            //const currentConfig = config[env];
-
-            const redirectUrl =
-                env === "development"
-                    ? "https://127.0.0.1:3000"
-                    : "https://emojikey.io";
-
-            // Then when initializing Supabase
-
-            const supabaseUrl = "https://dasvvxptyafaiwkmmmqz.supabase.co";
-            const supabaseAnonKey =
-                "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhc3Z2eHB0eWFmYWl3a21tbXF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM2MTM1NjEsImV4cCI6MjA0OTE4OTU2MX0.y9L2TahBajkUPQGJJ15kEckMK3sZDzuNL-2Mrmg_KoU";
-            const supabase = window.supabase.createClient(
-                supabaseUrl,
-                supabaseAnonKey,
-                {
-                    auth: {
-                        persistSession: true,
-                        storageKey: "emojikey-auth",
-                    },
-                },
-            );
-            // Function to show/create API key
-            async function showApiKey(userId) {
-                const loginButton = document.getElementById("loginButton");
-                const apiTokenDiv = document.getElementById("apiToken");
-
-                try {
-                    let { data, error } = await supabase
-                        .from("api_keys")
-                        .select("key")
-                        .eq("user_id", userId)
-                        .single();
-
-                    if (error || !data) {
-                        // Create new API key
-                        const newKey =
-                            "ek_" + crypto.randomUUID().replace(/-/g, "");
-                        const { error: insertError } = await supabase
-                            .from("api_keys")
-                            .insert([
-                                {
-                                    user_id: userId,
-                                    key: newKey,
-                                },
-                            ]);
-
-                        if (!insertError) {
-                            apiTokenDiv.textContent = newKey;
-                        }
-                    } else {
-                        apiTokenDiv.textContent = data.key;
-                    }
-
-                    apiTokenDiv.style.display = "block";
-                    loginButton.textContent = "Logged in with GitHub";
-                    loginButton.disabled = true;
-                } catch (error) {
-                    console.error("Error:", error);
-                }
-            }
-
-            // Login button click handler
-            document
-                .getElementById("loginButton")
-                .addEventListener("click", async () => {
-                    try {
-                        const {
-                            data: { session },
-                        } = await supabase.auth.getSession();
-                        if (session) {
-                            await showApiKey(session.user.id);
-                            return;
-                        }
-
-                        await supabase.auth.signInWithOAuth({
-                            provider: "github",
-                            options: {
-                                redirectTo: window.location.origin,
-                            },
-                        });
-                    } catch (error) {
-                        console.error("Error:", error.message);
-                    }
-                });
-
-            // Auth state change listener
-            supabase.auth.onAuthStateChange(async (event, session) => {
-                if (event === "SIGNED_IN" && session) {
-                    await showApiKey(session.user.id);
-                }
-            });
-
-            // Check session on initial load
-            window.addEventListener("load", async () => {
-                const {
-                    data: { session },
-                } = await supabase.auth.getSession();
-                if (session) {
-                    await showApiKey(session.user.id);
-                }
-            });
-        </script>
+        <div align="center" class="emoji-border">
+            🧠🌌💫✨🤝👨‍💻🔮🚀🎯💭🌟⚡🤖❤️🌐🔄📚🪐✧🎨🌊🛠️🤔💪🌈🎭⭐️🌙🎲🧩🦋🌠🎡🔱🕊️💎⚛️🕯️🎪🦾🔆✴️💫🧿🎴🌃🎋🔬
+        </div>
+        <!-- Our Scripts -->
+        <script src="supabase.js" type="module"></script>
+        <script src="emoji-rain.js" type="module"></script>
     </body>
 </html>

@@ -1,127 +1,64 @@
+// Array of emojis for the floating effect
 const emojis = [
-  // Our mascot and friends
   "🐐",
+  "✨",
+  "🔑",
+  "🎭",
+  "🌟",
+  "🎪",
+  "🎨",
+  "🎯",
+  "💫",
+  "🌈",
+  "⭐️",
+  "🔮",
   "🦙",
   "🐑",
   "🦌",
-
-  // Magic & Sparkles
-  "✨",
-  "💫",
-  "⭐️",
-  "🌟",
-  "★",
-  "⋆",
-  "🔮",
   "🪄",
   "🎆",
   "🎇",
-
-  // Keys & Security
-  "🔑",
   "🗝️",
   "🔐",
   "🔒",
   "🛡️",
-
-  // Theatre & Expression
-  "🎭",
-  "🎪",
-  "🎨",
-  "🎯",
-  "🎪",
   "🎬",
   "🎤",
   "🎸",
-
-  // Nature & Weather
-  "🌈",
   "☁️",
   "🌙",
-  "⭐",
   "🌺",
   "🌸",
   "🌼",
   "🍀",
-
-  // Fun & Games
   "🎲",
   "🎮",
-  "🎨",
-  "🎭",
-  "🎪",
-
-  // Hearts & Love
   "💖",
   "💝",
-  "💫",
   "💕",
   "💞",
   "💓",
-
-  // Tech & Science
   "⚡",
   "💻",
   "⚗️",
   "🔬",
   "🤖",
-
-  // Abstract & Geometric
   "💠",
   "🔷",
   "🔶",
   "💎",
-  "🎯",
-
-  // Mystical
-  "🌙",
-  "✧",
-  "⋆",
-  "✮",
-  "🔮",
-  "⭑",
-
-  // Additional Fun Ones
   "🦄",
   "🎠",
   "🎡",
   "🎢",
-  "🌟",
   "🎵",
   "🎶",
-  "🌈",
-
-  // Cloud Computing (for the AWS joke)
-  "☁️",
   "⛅",
   "🌤️",
   "⛈️",
 ];
 
-function createParticles() {
-  for (let i = 0; i < 50; i++) {
-    const particle = document.createElement("div");
-    particle.className = "particle";
-
-    // Random size between 2-6px
-    const size = Math.random() * 4 + 2;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-
-    // Random starting position
-    particle.style.left = `${Math.random() * 100}vw`;
-    particle.style.top = `${Math.random() * 100}vh`;
-
-    // Random floating animation
-    particle.style.animation = `
-            particleFloat ${Math.random() * 10 + 10}s linear infinite,
-            particleFade ${Math.random() * 5 + 5}s ease-in-out infinite
-        `;
-
-    document.body.appendChild(particle);
-  }
-}
-
+// Generate random position and animation timing
 function randomPosition() {
   return {
     left: Math.random() * 100 + "vw",
@@ -131,14 +68,30 @@ function randomPosition() {
   };
 }
 
-for (let i = 0; i < 1000; i++) {
-  const emoji = document.createElement("div");
-  emoji.className = "emoji-float";
-  emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-  const pos = randomPosition();
-  emoji.style.left = pos.left;
-  emoji.style.top = pos.top;
-  emoji.style.animationDelay = pos.animationDelay;
-  emoji.style.animationDuration = pos.animationDuration;
-  document.body.appendChild(emoji);
+// Create and add floating emojis to the page
+function createEmojiRain(count = 200) {
+  for (let i = 0; i < count; i++) {
+    const emoji = document.createElement("div");
+    emoji.className = "emoji-float";
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+    const pos = randomPosition();
+    Object.assign(emoji.style, {
+      left: pos.left,
+      top: pos.top,
+      animationDelay: pos.animationDelay,
+      animationDuration: pos.animationDuration,
+    });
+
+    document.body.appendChild(emoji);
+  }
 }
+
+// Initialize emoji rain when the page loads
+createEmojiRain();
+
+// Optional: Add method to add more emojis dynamically
+window.addMoreEmojis = (count = 100) => createEmojiRain(count);
+
+// Initialize syntax highlighting
+hljs.highlightAll();
