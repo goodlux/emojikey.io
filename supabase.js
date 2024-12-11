@@ -17,22 +17,38 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
   },
 });
 
+async function checkAuth() {
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+  console.log("Current auth state:", {
+    hasSession: !!session,
+    userId: session?.user?.id,
+    error,
+    accessToken: session?.access_token?.slice(0, 20) + "...", // just show start of token
+  });
+  return session;
+}
+
 // Handle API key display and generation
 async function showApiKey(userId) {
+  console.log("Showing API key for user:", userId);
   const loginButton = document.getElementById("loginButton");
   const apiTokenDiv = document.getElementById("apiToken");
 
   try {
+    // First try to get existing API key
     let { data, error } = await supabase
       .from("api_keys")
       .select("api_key")
-      .eq("user_id", userId)
-      .single();
+      .eq("user_id", userId);
 
-    if (error) throw error;
+    console.log("Initial key check:", { data, error });
 
-    if (!data) {
-      // Create new row, Postgres will generate the api_key
+    // Only create a new key if we truly have no keys
+    if (!data || data.length === 0) {
+      console.log("No existing keys found - creating new one");
       const { data: newKey, error: insertError } = await supabase
         .from("api_keys")
         .insert([{ user_id: userId }])
@@ -40,22 +56,25 @@ async function showApiKey(userId) {
         .single();
 
       if (insertError) throw insertError;
+
       apiTokenDiv.textContent = newKey.api_key;
     } else {
-      apiTokenDiv.textContent = data.api_key;
+      // Use the most recent key
+      apiTokenDiv.textContent = data[0].api_key;
     }
 
     apiTokenDiv.style.display = "block";
     loginButton.textContent = "Logged in with GitHub";
     loginButton.disabled = true;
 
-    // Smooth scroll to the section
     document.querySelector("#login-section").scrollIntoView({
       behavior: "smooth",
       block: "center",
     });
   } catch (error) {
     console.error("Error managing API key:", error);
+    apiTokenDiv.textContent = "Error managing API key. Please try again.";
+    apiTokenDiv.style.display = "block";
   }
 }
 
@@ -78,18 +97,15 @@ async function handleLogout() {
 // Login button handler
 document.getElementById("loginButton").addEventListener("click", async () => {
   try {
-    const {
-      data: { session },
-      error: sessionError,
-    } = await supabase.auth.getSession();
+    const session = await checkAuth();
+    console.log("Pre-login check:", { hasSession: !!session });
 
     if (session) {
-      // If already logged in, just show API key without page reload
       await showApiKey(session.user.id);
       return;
     }
 
-    // Only do OAuth redirect if no session exists
+    console.log("No session, starting GitHub OAuth...");
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
@@ -107,14 +123,18 @@ window.addEventListener("load", async () => {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  if (session) {
+  console.log("Initial load session check:", { hasSession: !!session });
+  if (session?.user) {
+    // Only try to show API key if we have a user
     await showApiKey(session.user.id);
   }
 });
 
 // Auth state listener
 supabase.auth.onAuthStateChange((event, session) => {
-  if (session) {
+  console.log("Auth state changed:", { event, hasSession: !!session });
+  if (session?.user) {
+    // Only try to show API key if we have a user
     showApiKey(session.user.id);
   }
 });
