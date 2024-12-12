@@ -95,6 +95,22 @@ body {
     text-align: center;
 }
 
+.apikey {
+    background: #1a1d2e;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    margin: 5px 0;
+    overflow-x: auto;
+    white-space: pre-wrap; /* Changed from pre to pre-wrap */
+    text-align: left; /* Added explicit left alignment */
+    display: block; /* Added to ensure full-width */
+    color: #00ff00;
+    font-family: monospace; /* Computer-style fonts */
+    font-size: 1.5rem; /* Makes text 20% bigger than default */
+    letter-spacing: 0.5px; /* Adds a bit of spacing between letters */
+}
+
 .command {
     background: #1a1d2e;
     padding: 10px;

@@ -164,7 +164,7 @@
                         Logout
                     </button>
                      -->
-                    <div id="apiToken" class="command"></div>
+                    <div id="apiToken" class="apikey"></div>
                 </div>
 
                 <div class="step-box">
@@ -185,13 +185,19 @@ npm install @modelcontextprotocol/server-emojikey
                     <h3>Configure your LLM</h3>
                     <pre>
 <code class="language-json">
+//
+// Add the following to your Claude Desktop config file at:
+//
+// /Users/{your username}/Library/Application\ Support/Claude/claude_desktop_config.json
+
 {
 "mcpServers": {
-    "emojikey-server": {
+    "mcp-server-emojikey": {
         "command": "npx",
-        "args": ["@goodlux/emojikey-server"],
+        "args": ["-y","@identimoji/mcp-server-emojikey"],
         "env": {
             "EMOJIKEYIO_API_KEY": "your-api-key-goes-right-here"
+            "MODEL_ID": "Claude-3-5-Sonnet-20241022"
         }
     }
 }
